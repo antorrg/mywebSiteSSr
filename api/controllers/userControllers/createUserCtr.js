@@ -1,4 +1,4 @@
-import sv from '../../services/holder/index.js'
+import sv from '../../services/users/index.js'
 
 const createUserCtr = async (req, res) => {
     const {email, password}= req.body;

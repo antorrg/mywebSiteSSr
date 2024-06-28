@@ -1,4 +1,4 @@
-import sv from "../../services/holder/index.js";
+import sv from "../../services/users/index.js";
 
 export const getUserCtr = async (req, res) => {
   const response = await sv.getAllUsers();

@@ -1,4 +1,4 @@
-import sv from '../../services/holder/index.js'
+import sv from '../../services/users/index.js'
 
 export const verifyPassCtr = async (req, res) => {
     const {id, password}= req.body;

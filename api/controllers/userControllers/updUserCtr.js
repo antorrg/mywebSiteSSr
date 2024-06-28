@@ -1,4 +1,4 @@
-import sv from "../../services/holder/index.js";
+import sv from "../../services/users/index.js";
 
 const updUserCtr = async (req, res) => {
   const { id } = req.params;

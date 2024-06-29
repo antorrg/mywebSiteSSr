@@ -41,7 +41,7 @@ if (!isProduction) {
   app.use(base, sirv('./dist/client', { extensions: [] }))
 }
 app.use(express.json()) // Ejecutar express.json()
-app.use(mainRouter)
+app.use('/api',mainRouter)
 
 // Serve HTML
 

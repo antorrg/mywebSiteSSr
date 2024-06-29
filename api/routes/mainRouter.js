@@ -4,7 +4,8 @@ import ctr from "../controllers/projectControllers.js";
 import mid from "../middlewares/middlewares.js";
 
 const mainRouter = express.Router()
-
+/*Para pdder adaptarme a los parametros de Vercel me vi en la obligacion de
+meter a todas las funciones en un mismo archivo, por suerte en Render no necesito eso... */
 
 mainRouter.post("/project/create", mid.createMidd, ctr.createController);
 mainRouter.post("/project/item/create",mid.createItem,ctr.createItemController);

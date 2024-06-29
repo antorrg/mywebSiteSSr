@@ -5,6 +5,11 @@ import env from './envConfig.js'
 const sequelize = new Sequelize(env.ConnectDb,{
  logging:false,          
  native: false,
+ dialectOptions: {
+         ssl: {
+            require: true,
+           }
+         }
 });
 
 

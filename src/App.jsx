@@ -1,7 +1,7 @@
 import {Routes, Route, Navigate} from 'react-router-dom'
 import {useAuth} from './Auth/AuthContext/AuthContext'
 //import V from './views/Index'
-import React, { Suspense, lazy } from 'react'
+import React, { Suspense, lazy, useEffect } from 'react'
 import './App.css'
 const Landing = lazy(() => import('./views/Landing'));
 const Home = lazy(() => import('./views/Home'));
@@ -10,11 +10,14 @@ const About = lazy(() => import('./views/About'));
 const Create = lazy(() => import('./views/Create'));
 const Update = lazy(() => import('./views/Update'));
 const Form = lazy(() => import('./views/Form'));
+
 // Works also with SSR as expected
 
 
 export default function App() {
   const {authenticated} = useAuth()
+ 
+
   return (
     <div>
       <ErrorBoundary>

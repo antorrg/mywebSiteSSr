@@ -1,5 +1,6 @@
 import React from 'react'
 import { renderToPipeableStream } from 'react-dom/server'
+import {Provider as ReduxProvider} from 'react-redux'
 import {StaticRouter} from 'react-router-dom/server'
 import {AuthProvider} from '../src/Auth/AuthContext/AuthContext'
 import { ThemeProvider } from 'styled-components'
@@ -25,6 +26,7 @@ export function render(url, ssrManifest, options) {
  
   return renderToPipeableStream(
     <React.StrictMode>
+   
       <AuthProvider initialAuthenticated={authenticated} initialUser={user}>
       <StaticRouter location={url}>
       <ThemeProvider theme = {theme}>
@@ -33,6 +35,7 @@ export function render(url, ssrManifest, options) {
       <ToastContainer/>
       </StaticRouter>
       </AuthProvider>
+      
     </React.StrictMode>,
     options
   )

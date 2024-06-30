@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function Item({item}) {
     const navigate = useNavigate()
-    const {id, img, text, homeId }= item;
+    const {id, img, text, pageId }= item;
     const goOn = ()=>{navigate(`/detail/${id}`)}
   return (
      <S.Card>

@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { Suspense, useEffect, useState, lazy } from 'react'
 import {useParams, useNavigate} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
-import {getProjectById} from '../../redux/actions'
+import {getProjectById, cleanDetail} from '../../redux/actions'
 const UserItem = lazy(()=>import('./DetalleModules/UserItem'))
 const NavbarDetalle = lazy(()=>import('./NavbarDetalle'))
 const Loading = lazy(()=>import('../Loading'))
@@ -83,7 +83,10 @@ export default function Detalle (){
  
 
   useEffect(()=>{
-    dispatch(getProjectById(id))
+    dispatch(getProjectById(id));
+
+    return ()=>{dispatch(cleanDetail())}
+
   },[id])
 
     return (

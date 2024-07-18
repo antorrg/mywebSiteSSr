@@ -15,11 +15,9 @@ const Navbar = styled.nav`
   width: 97vw; /* Asegura que ocupe todo el ancho de la pantalla */
   max-height: 2rem;
   z-index: 1000;
-  @media (max-width: 768px){
-    width: 100vw;
-    height:fit-content;
-    
-  }
+  ${({ isOpen }) => isOpen && `
+    max-height: 4rem;
+  `}
 `;
 
 const Brand = styled.div`
@@ -28,9 +26,9 @@ const Brand = styled.div`
 `;
 
 const NavLinks = styled.div`
-  display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
+  /* display: ${({ isOpen }) => (isOpen ? 'block' : 'none')}; */
   position: absolute;
-  top: 60px;
+  top: 80px;
   left: 0;
   background-color: #333;
   width: 100%;
@@ -44,7 +42,12 @@ const NavLinks = styled.div`
     text-align: left; /* Alinea los enlaces a la izquierda */
   }
 `;
-
+const Dinamic = styled.div`
+ display:flex;
+ flex-direction: column;
+ align-items: left;
+ justify-content: space-between;
+`
 const NavLink = styled(Link)`
   display: block;
   padding: 1rem;
@@ -62,7 +65,7 @@ const NavLink = styled(Link)`
 
 const HamburgerIcon = styled.div`
   position: relative;
-  right: 0;
+  left: 0;
   display: flex;
   flex-direction: column;
   cursor: pointer;
@@ -77,7 +80,7 @@ const HamburgerIcon = styled.div`
   }
 
   @media (min-width: 768px) {
-    display: none;
+    
   }
 
   ${({ isOpen }) => isOpen && `
@@ -93,33 +96,44 @@ const HamburgerIcon = styled.div`
   `}
 `;
 
-const HamburgerMenu = () => {
+export default function NavbarDetalle ({info, setIsNavbarOpen}) {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
+  const handleToggle = () => {
+    setIsOpen(!isOpen);
+    setIsNavbarOpen(!isOpen);
+  };
+
   const handleNavigate = (path) => {
     setIsOpen(false);
+    setIsNavbarOpen(false);
     navigate(path);
   };
 
   return (
-    <Navbar>
+    <Navbar isOpen={isOpen}>
       <Brand>
-        <h4>MyApp</h4>
-        <HamburgerIcon isOpen={isOpen} onClick={() => setIsOpen(!isOpen)}>
-          <div></div>
-          <div></div>
-          <div></div>
-        </HamburgerIcon>
-      </Brand>
+      {isOpen?
+      <Dinamic>
+        <p><strong>{info?.title}</strong> : {info?.infoHeader}</p>
+      </Dinamic> :
+      <h4>Proyecto: </h4>}
+         </Brand>
+      {isOpen?
       <NavLinks isOpen={isOpen}>
         <NavLink to="/home" onClick={() => handleNavigate('/home')}>Home</NavLink>
         <NavLink to="/about" onClick={() => handleNavigate('/about')}>About</NavLink>
         <NavLink to="/services" onClick={() => handleNavigate('/services')}>Services</NavLink>
         <NavLink to="/contact" onClick={() => handleNavigate('/contact')}>Contact</NavLink>
-      </NavLinks>
+      </NavLinks> : null}
+
+        <HamburgerIcon isOpen={isOpen} onClick={handleToggle}>
+          <div></div>
+          <div></div>
+          <div></div>
+        </HamburgerIcon>
     </Navbar>
   );
 };
 
-export default HamburgerMenu;

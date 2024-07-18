@@ -1,25 +1,5 @@
 import styled from 'styled-components'
 
-
-export const Cardx = styled.div`
-  width: 85vw;
-  margin-left: 8rem;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr ;
-  grid-template-rows: 1fr 1fr ;
-  grid-gap: 1.25rem; 
-  
-  `
-  export const Link = styled.a`
-   color: inherit; /* Heredar el color del elemento padre */
-   text-decoration: none; /* Quitar subrayado del enlace */
-  
-   &:hover {
-     text-decoration: underline; /* Subrayado al pasar el ratón */
-     cursor: pointer;
-   }
-  `;
-  
 export const Card = styled.div`
   max-width: 14rem;
   height: fit-content;
@@ -40,19 +20,12 @@ export const Card = styled.div`
   }
 `;
 
-export const Logo = styled.img`
-  max-width: 3rem;
-  max-height: 3rem;
-`;
 
 export const Image = styled.img`
   max-width: 12rem;
   max-height: 13rem;
 `;
-export const UserImg = styled.img`
-  max-width: 8rem;
-  max-height: 8rem;
-`;
+
 export const Details = styled.div`
   display: flex;
   flex-direction: column;
@@ -66,17 +39,9 @@ export const Content = styled.div`
   margin: 0;
   margin:left;
 `;
-export const ContVert = styled.div`
-  display: flex;
-  flex-direction:column;
-  align-items: start;
-  margin:left;
-  padding:0;
-`;
+
 
 export const Paragraph = styled.p`
   margin-left: 0.5rem;
   text-align: left;
 `;
-
-

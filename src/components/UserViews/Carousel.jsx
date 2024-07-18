@@ -8,12 +8,23 @@ const CarouselContainer = styled.div`
   width: 99%;
   max-height: 80%;
   overflow: hidden;
+  @media (max-width: 768px) {
+    top: 0;
+    width: 100vw;
+    max-height: 60vh;
+    overflow: hidden;
+  }
 `;
 
 const CarouselInner = styled.div`
   display: flex;
   transition: transform 0.5s ease;
   transform: ${({ currentIndex }) => `translateX(-${currentIndex * 100}%)`};
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+  }
 `;
 
 const CarouselItem = styled.div`
@@ -33,6 +44,13 @@ const Indicators = styled.div`
   left: 50%;
   transform: translateX(-50%);
   display: flex;
+  @media (max-width: 768px) {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    transform: none;
+    margin-top: 1rem;
+  }
 
   button {
     border: none;
@@ -47,6 +65,7 @@ const Indicators = styled.div`
       outline: none;
     }
   }
+ 
 `;
 
 const ControlButton = styled.button`
@@ -66,6 +85,15 @@ const ControlButton = styled.button`
 
   &:focus {
     outline: none;
+  }
+  @media (max-width: 768px) {
+    ${({ direction }) => direction === 'left' ? 'left: 10px;' : 'right: 10px;'}
+    top: auto;
+    bottom: 10px;
+
+    span {
+      font-size: 24px;
+    }
   }
 `;
 
@@ -106,6 +134,27 @@ const CarouselCaption = styled.div`
       font-size: 1.5rem;
     }
   }
+
+  @media (max-width: 768px) {
+    top: 4rem;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 90%;
+    text-align: center;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      font-size: 0.9rem;
+    }
+  }
 `;
 const PrimaryButton = styled.a`
     width: 100%;
@@ -122,54 +171,36 @@ const PrimaryButton = styled.a`
     background-color: #ccc;
     cursor: not-allowed;
 }
+@media (max-width: 768px) {
+    width: 80%;
+    font-size: 14px;
+    padding: 6px;
+  }
 `
 
-const Carousel = () => {
+export default function Carousel ({projects}) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const items = [
-    {
-      src: 'images/proyectoCarrusel1.png',
-      alt: 'Rick and Morty 2024',
-      title: 'Rick and Morty.',
-      description: 'Este es mi primer sitio web, encontrará más detalles abajo.',
-      link: 'https://rick-and-morty2024.vercel.app/',
-    },
-    {
-      src: 'images/proyectoCarrusel2.png',
-      alt: 'Gameworld e-commerce',
-      title: 'Gameworld e-commerce.',
-      description: 'Un e-commerce realizado por el equipo de estudiantes de Henry.',
-      link: 'https://gameworldeccomerce.vercel.app',
-    },
-    {
-      src: 'images/proyectoCarrusel3.png',
-      alt: 'Boscarol Hnos',
-      title: 'Boscarol Hnos.',
-      description: 'Landing page y administración de vehículos y clientes para un taller mecánico.',
-      link: 'https://deployprueba.vercel.app',
-    },
-  ];
 
   const handleNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % items.length);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % projects.length);
   };
 
   const handlePrev = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + items.length) % items.length);
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + projects.length) % projects.length);
   };
 
   return (
     <CarouselContainer>
       <CarouselInner currentIndex={currentIndex}>
-        {items.map((item, index) => (
+        {projects.map((info, index) => (
           <CarouselItem key={index}>
-            <img src={item.src} alt={item.alt} />
+            <img src={info.landing} alt={info.title} />
             {index === currentIndex && (
               <CarouselCaption>
-                <h1>{item.title}</h1>
-                <p>{item.description}</p>
+                <h1>{info.title}</h1>
+                <p>{info.infoHeader}</p>
                 <p>
-                  <PrimaryButton href={item.link} target="_blank" rel="noopener noreferrer" >Visite el sitio</PrimaryButton>
+                  <PrimaryButton href={info.url} target="_blank" rel="noopener noreferrer" >Visite el sitio</PrimaryButton>
                 </p>
               </CarouselCaption>
             )}
@@ -183,7 +214,7 @@ const Carousel = () => {
         <span>&#10095;</span>
       </ControlButton>
       <Indicators>
-        {items.map((_, index) => (
+        {projects.map((_, index) => (
           <button
             key={index}
             isActive={index === currentIndex}
@@ -195,4 +226,3 @@ const Carousel = () => {
   );
 };
 
-export default Carousel;

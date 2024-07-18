@@ -4,6 +4,9 @@ import {useAuth} from './Auth/AuthContext/AuthContext'
 import React, { Suspense, lazy, useEffect } from 'react'
 import './App.css'
 const Landing = lazy(() => import('./views/Landing'));
+//const ViewProject = lazy(() => import('./components/UserViews/ViewProject'));
+const Detalle = lazy(() => import('./components/UserViews/Detalle'))
+const ItemDetail = lazy(() => import('./components/UserViews/ItemDetail'))
 const Home = lazy(() => import('./views/Home'));
 const Detail = lazy(() => import('./views/Detail'));
 const About = lazy(() => import('./views/About'));
@@ -13,6 +16,30 @@ const Form = lazy(() => import('./views/Form'));
 
 // Works also with SSR as expected
 
+const info = {
+  title: "Mi Proyecto",
+  infoHeader: "Este es el encabezado de información.",
+  infoBody: "Este es el cuerpo de información.",
+  url: "https://example.com",
+};
+
+const items = [
+  {
+    id: 1,
+    img: "https://via.placeholder.com/150",
+    text: "Item 1",
+  },
+  {
+    id: 2,
+    img: "https://via.placeholder.com/150",
+    text: "Item 2",
+  },
+  {
+    id: 3,
+    img: "https://via.placeholder.com/150",
+    text: "Item 3",
+  },
+];
 
 export default function App() {
   const {authenticated} = useAuth()
@@ -24,6 +51,8 @@ export default function App() {
    <Suspense fallback={<div>Loading...</div>}> 
     <Routes>
     <Route path={'/'} element={<Landing/>}/>
+    <Route path={'/detalle/:id'} element={<Detalle/>}/>
+    <Route path={'item/:id'} element = {<ItemDetail/>}/>
     <Route path={'/about'} element={<About/>}/>
     <Route path={'/home'} element={authenticated? <Home/>: <Navigate to= '/'/>}/>
     <Route path={'/home/:id'} element={authenticated? <Home/>: <Navigate to= '/'/>}/>

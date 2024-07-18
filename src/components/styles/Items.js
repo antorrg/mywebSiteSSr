@@ -9,6 +9,33 @@ export const InfoContainer = styled.div`
     grid-template-rows: 1fr 1fr ;
     grid-gap: 1.25rem; 
 `
+export const InfoVerticalCont = styled.div`//para la landing o zona del visitante
+    width: 85vw;
+    margin: 0;
+    margin-left: 2rem;
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+    & p {
+    color: rgb(37, 37, 103); /* Ejemplo: cambia el color del texto a azul */
+    font-weight: bold; /* Ejemplo: pone el texto en negrita */
+    margin: 0; /* Ejemplo: elimina el margen por defecto */
+    text-align: left;
+  }
+`
+export const InfoGroupInvisible = styled.p`
+    display: flex;
+    flex-direction: row;
+    align-items: center; /* Alinea los elementos dentro del grupo horizontalmente */
+    gap: 0.5rem; /* Espacio entre los elementos del grupo */
+    border:none;
+& p {
+    color: rgb(37, 37, 103); /* Ejemplo: cambia el color del texto a azul */
+    font-weight: bold; /* Ejemplo: pone el texto en negrita */
+    margin: 0; /* Ejemplo: elimina el margen por defecto */
+    text-align: left;
+  }
+`
 
 export const InfoGroup = styled.p`
     display: flex;

@@ -9,6 +9,12 @@ width: 85vw;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr ;
   grid-gap: 1.25rem; 
+  @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+        width:100vw;
+        align-items:center;
+        justify-items: center;
+    }
 `
 export default function FrontCards ({projects}){
 

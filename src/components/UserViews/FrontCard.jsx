@@ -7,8 +7,14 @@ const FCard = styled.div`
   border: none;
   padding: 1rem;
   margin: 0.5rem;
-  margin-left: 0.5vw;
   margin-top:4rem;
+  @media (max-width:768px){
+    max-width:fit-content;
+    height: fit-content;
+    padding:0.2rem;
+    margin-left: none;
+    margin-top:4rem;
+  }
 `
 const Logo = styled.img`
   max-width: 5rem;
@@ -25,17 +31,31 @@ line-height:1;
 const Text = styled.p`
    
 `
+const Botoncito = styled.button`
+    padding: 0.5rem 1rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+
+&:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+`
 export default function FrontCard ({project}){
     const navigate =useNavigate()
     const {id, logo, title, infoHeader} = project;
-    console.log(title)
-    const goDetail = ()=>{navigate('/')}
+    const goDetail = ()=>{navigate(`/detalle/${id}`)}
     return(
         <FCard>
         <Logo src={logo} alt='Not found'/>
         <Title>{title}</Title>
         <p>{infoHeader}</p>
-        <button onClick={goDetail}>Ver mas...</button>
+        <Botoncito onClick={goDetail}>Ver mas...</Botoncito>
         </FCard>
     )
 }

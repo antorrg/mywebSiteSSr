@@ -75,6 +75,7 @@ const closeDel=()=>{
     <div>
        <Suspense fallback={<div>Loading...</div>}> 
       <div>
+      <GenericButton buttonText={'LandingPage'} onClick={()=>{navigate(`/`)}} className={bstyle.button}/>
       <GenericButton buttonText={'Projects'} onClick={()=>{setView('project'); navigate(`/home`)}} disabled={!id && view === 'project'} className={bstyle.button}/>
       <GenericButton buttonText={'Users'} onClick={()=>{setView('user'); navigate(`/home`)}} disabled={!id && view ==='user'}  className={bstyle.button}/>
       <GenericButton buttonText={'Editar'}  onClick = {edition} disabled= {!id}className={bstyle.button} />

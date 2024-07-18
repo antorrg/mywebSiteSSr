@@ -34,7 +34,7 @@ useEffect(()=>{
         <hr></hr>
         {!load?
         <>
-         <Carousel/>
+         <Carousel projects={projects}/>
          <br></br>
         <FrontCards projects={projects}/>
         </>: 

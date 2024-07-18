@@ -3,6 +3,7 @@ import express from 'express'
 import { Transform } from 'node:stream'
 import {sequelize} from './api/db.js'
 import mainRouter from './api/routes/mainRouter.js'
+import errhand from './api/middlewares/middlewares.js'
 import morgan from 'morgan'
 import store from './src/redux/store.js'
 
@@ -112,7 +113,8 @@ app.use('*', async (req, res) => {
     res.status(500).end(e.stack)
   }
 })
-
+app.use(errhand.lostRoute)
+app.use(errhand.errorEndWare)
 // Start http server
 app.listen(port, async () => {
   try {

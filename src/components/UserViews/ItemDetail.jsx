@@ -1,9 +1,9 @@
 import styled from 'styled-components'
-import {useEffect, Suspense} from 'react'
+import {useEffect, Suspense, lazy} from 'react'
 import {useDispatch, useSelector } from 'react-redux'
 import { useParams, useNavigate} from 'react-router-dom'
 import { getById, cleanDetail } from '../../redux/actions'
-import C from '../Index'
+const Loading = lazy(()=>import('../Loading'))
 
 const Container = styled.div`
     position:absolute;
@@ -109,9 +109,9 @@ export default function ItemDetail() {
  
  
   return (
-    <Suspense>
+    <Suspense fallback={<Loading/>}>
     {loading? 
-    <C.Loading/> :
+    <Loading/> :
     <Container>
     <Card>
     <Content>

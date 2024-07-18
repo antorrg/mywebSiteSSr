@@ -21,7 +21,9 @@ export default function Landing () {
 useEffect(()=>{
     dispatch(getInfo())
 },[])
-    const goGo = ()=>{authenticated? navigate('/home'): navigate(`/login`)}
+    const goGo = ()=>{
+        authenticated ? navigate('/home'): navigate('/login');
+    }
  
 
 
@@ -29,7 +31,7 @@ useEffect(()=>{
 
     return (
         <>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<Loading/>}>
         <Navbar goGo={goGo}/>
         <hr></hr>
         {!load?

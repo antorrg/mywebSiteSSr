@@ -1,11 +1,11 @@
 import styled from 'styled-components'
-import { Suspense, useEffect, useState } from 'react'
+import { Suspense, useEffect, useState, lazy } from 'react'
 import {useParams, useNavigate} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import {getProjectById} from '../../redux/actions'
-import UserItem from './DetalleModules/UserItem'
-import NavbarDetalle from './NavbarDetalle'
-import C from '../Index'
+const UserItem = lazy(()=>import('./DetalleModules/UserItem'))
+const NavbarDetalle = lazy(()=>import('./NavbarDetalle'))
+const Loading = lazy(()=>import('../Loading'))
 
 
 const InfoContainer = styled.div`
@@ -89,9 +89,9 @@ export default function Detalle (){
     return (
         
         <>
-        <Suspense>
+        <Suspense fallback={<Loading/>}>
         {loading? 
-        <C.Loading/> : 
+        <Loading/> : 
         <>
         <NavbarDetalle info={info} setIsNavbarOpen={setIsNavbarOpen}/>
         <InfoContainer isNavbarOpen={isNavbarOpen}>

@@ -1,5 +1,6 @@
 import {MainContainer, Titulo, SecondContainer, Button} from './styles/About'
 import {useNavigate} from 'react-router-dom'
+import styled from 'styled-components'
 
 
  const Skills = styled.div`

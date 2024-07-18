@@ -16,30 +16,7 @@ const Form = lazy(() => import('./views/Form'));
 
 // Works also with SSR as expected
 
-const info = {
-  title: "Mi Proyecto",
-  infoHeader: "Este es el encabezado de información.",
-  infoBody: "Este es el cuerpo de información.",
-  url: "https://example.com",
-};
 
-const items = [
-  {
-    id: 1,
-    img: "https://via.placeholder.com/150",
-    text: "Item 1",
-  },
-  {
-    id: 2,
-    img: "https://via.placeholder.com/150",
-    text: "Item 2",
-  },
-  {
-    id: 3,
-    img: "https://via.placeholder.com/150",
-    text: "Item 3",
-  },
-];
 
 export default function App() {
   const {authenticated} = useAuth()

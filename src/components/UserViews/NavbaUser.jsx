@@ -45,11 +45,12 @@ const NavLinks = styled.div`
   }
 `;
 
-const NavLink = styled(Link)`
+const NabLink = styled.a`
   display: block;
   padding: 1rem;
   text-decoration: none;
   color: white;
+  cursor: pointer;
 
   &:hover {
     background-color: #575757;
@@ -93,13 +94,18 @@ const HamburgerIcon = styled.div`
   `}
 `;
 
-const HamburgerMenu = () => {
+const HamburgerMenu = ({goGo}) => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleNavigate = (path) => {
     setIsOpen(false);
     navigate(path);
+  };
+  const homeNavigate = () => {
+    setIsOpen(false);
+    goGo()
+    console.log('Yo ando bien')
   };
 
   return (
@@ -113,10 +119,10 @@ const HamburgerMenu = () => {
         </HamburgerIcon>
       </Brand>
       <NavLinks isOpen={isOpen}>
-        <NavLink to="/home" onClick={() => handleNavigate('/home')}>Home</NavLink>
-        <NavLink to="/about" onClick={() => handleNavigate('/about')}>About</NavLink>
-        <NavLink to="/services" onClick={() => handleNavigate('/services')}>Services</NavLink>
-        <NavLink to="/contact" onClick={() => handleNavigate('/contact')}>Contact</NavLink>
+        <NabLink onClick={homeNavigate}>Home</NabLink>
+        <NabLink to="/about" onClick={() => handleNavigate('/about')}>About</NabLink>
+        <NabLink to="/services" onClick={() => handleNavigate('/services')}>Services</NabLink>
+        <NabLink to="/contact" onClick={() => handleNavigate('/contact')}>Contact</NabLink>
       </NavLinks>
     </Navbar>
   );

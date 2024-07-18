@@ -1,11 +1,12 @@
-import {useEffect, Suspense} from "react";
+import {useEffect, Suspense, lazy} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {useNavigate, useParams} from 'react-router-dom'
 import {getProjectById} from '../../redux/actions'
 import { InfoVerticalCont, InfoGroupInvisible, ItemsContainer } from "../styles/Items";
 import { Botoncito, PrimaryButton } from "../styles/LandingStyles";
-import Item from '../Items/Item'
-import Loading from "../Loading";
+const Item = lazy(()=>import('../Items/Item'));
+const Loading = lazy(()=>import('../Loading'))
+
 
 export default function ViewProject (){
   const dispatch = useDispatch()

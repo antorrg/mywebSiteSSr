@@ -9,11 +9,11 @@ meter a todas las funciones en un mismo archivo, por suerte en Render no necesit
 mainRouter.post("/project/create", mid.createMidd, ctr.createController);
 mainRouter.post("/project/item/create",mid.createItem,ctr.createItemController);
 mainRouter.get("/project", ctr.getProjectHand);
-mainRouter.get("/project/:id", mid.protectRoute, ctr.getProjectById);
-mainRouter.get("/project/item/:id", mid.protectRoute, ctr.getItemById);
+mainRouter.get("/project/:id", mid.protectParam, ctr.getProjectById);
+mainRouter.get("/project/item/:id", mid.protectParam, ctr.getItemById);
 mainRouter.put("/project/:id", mid.updHome, ctr.updController);
 mainRouter.patch("/project/:id", mid.createItem, ctr.detailUpdController);
-mainRouter.delete("/project/:id", mid.protectRoute, ctr.delController);
+mainRouter.delete("/project/:id", mid.protectParam, ctr.delController);
 //--------------------------------------------------------------------------
 mainRouter.post("/user/create", mid.createHolderMidd, ctr.createUserCtr);
 mainRouter.post("/user/login", mid.createHolderMidd, ctr.loginUserCtr);

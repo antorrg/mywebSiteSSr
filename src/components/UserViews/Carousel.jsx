@@ -54,7 +54,7 @@ const Indicators = styled.div`
 
   button {
     border: none;
-    background-color: ${({ isActive }) => (isActive ? '#333' : '#bbb')};
+     background-color: #333;/*${({ isactive }) => (isactive ? '#333' : '#bbb')}; */
     width: 12px;
     height: 12px;
     border-radius: 50%;

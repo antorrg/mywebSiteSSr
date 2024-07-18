@@ -77,7 +77,7 @@ export default function Detalle (){
     const {id} = useParams()
     const response = useSelector((state)=>state.singleProject)
     const loading = useSelector((state)=>state.loading)
-    const info = response.info;
+    const info = response?.info;
     const items= response?.items;
     const [ isNavbarOpen, setIsNavbarOpen]= useState(false)
  
@@ -87,8 +87,6 @@ export default function Detalle (){
   },[id])
 
     return (
-        
-        <>
         <Suspense fallback={<Loading/>}>
         {loading? 
         <Loading/> : 
@@ -107,7 +105,7 @@ export default function Detalle (){
     </ItemsContainer>
     </>}
         </Suspense>
-        </>
+        
     )
 }
 

@@ -39,6 +39,7 @@ const rootReducer = (state= initialState, {type, payload})=>{
             return {
                 ...state,
                 detail: payload,
+                loading: false,
             }
         case SINGLE_PROJECT:
             return{
@@ -63,6 +64,7 @@ const rootReducer = (state= initialState, {type, payload})=>{
             return {
                 ...state,
                 detailUsers: payload,
+                loading: false,
             }
        
         default : 

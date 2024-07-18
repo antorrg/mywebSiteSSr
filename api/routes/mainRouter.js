@@ -1,5 +1,4 @@
 import express from 'express'
-
 import ctr from "../controllers/projectControllers.js";
 import mid from "../middlewares/middlewares.js";
 

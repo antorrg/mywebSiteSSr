@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import {getProjectById} from '../../redux/actions'
 import UserItem from './DetalleModules/UserItem'
 import NavbarDetalle from './NavbarDetalle'
+import C from '../Index'
 
 
 const InfoContainer = styled.div`
@@ -75,6 +76,7 @@ export default function Detalle (){
     const navigate = useNavigate()
     const {id} = useParams()
     const response = useSelector((state)=>state.singleProject)
+    const loading = useSelector((state)=>state.loading)
     const info = response.info;
     const items= response?.items;
     const [ isNavbarOpen, setIsNavbarOpen]= useState(false)
@@ -85,8 +87,12 @@ export default function Detalle (){
   },[id])
 
     return (
+        
         <>
         <Suspense>
+        {loading? 
+        <C.Loading/> : 
+        <>
         <NavbarDetalle info={info} setIsNavbarOpen={setIsNavbarOpen}/>
         <InfoContainer isNavbarOpen={isNavbarOpen}>
         <h2>{info?.title}</h2>
@@ -99,6 +105,7 @@ export default function Detalle (){
         <UserItem key={it.id} item={it}/>
           )}
     </ItemsContainer>
+    </>}
         </Suspense>
         </>
     )

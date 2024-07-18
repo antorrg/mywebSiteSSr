@@ -1,8 +1,9 @@
 import styled from 'styled-components'
-import {useEffect} from 'react'
+import {useEffect, Suspense} from 'react'
 import {useDispatch, useSelector } from 'react-redux'
 import { useParams, useNavigate} from 'react-router-dom'
 import { getById, cleanDetail } from '../../redux/actions'
+import C from '../Index'
 
 const Container = styled.div`
     position:absolute;
@@ -92,6 +93,7 @@ export default function ItemDetail() {
   const navigate = useNavigate()
   const {id} = useParams()
   const item = useSelector((state)=> state.detail)
+  const loading = useSelector((state)=> state.loading)
   //console.log('hay algo aca? ',item)
   useEffect(()=>{
     dispatch(getById(id))
@@ -107,6 +109,9 @@ export default function ItemDetail() {
  
  
   return (
+    <Suspense>
+    {loading? 
+    <C.Loading/> :
     <Container>
     <Card>
     <Content>
@@ -115,7 +120,8 @@ export default function ItemDetail() {
     <Text>{item.text}</Text>
     <Link onClick={goBack}>Volver</Link>
     </Card>
-    </Container>
+    </Container>}
+    </Suspense>
   )
 }
 

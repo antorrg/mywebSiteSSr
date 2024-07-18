@@ -46,7 +46,11 @@ export default {
 
   getProjectHand: eh.catchAsync(async (req, res) => {
     const response = await serv.getHome();
-    res.status(200).json(response);
+    if(response.cache===true){
+      res.status(203).json(response.pages)
+    }else{
+    res.status(200).json(response.pages);
+    }
   }),
 
   getProjectById: eh.catchAsync(async (req, res) => {

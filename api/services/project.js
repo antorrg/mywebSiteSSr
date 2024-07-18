@@ -1,5 +1,8 @@
 import { Page, Item, sequelize } from "../db.js";
+import NodeCache from "node-cache";
 import help from "./helpers.js";
+
+const cache = new NodeCache({ stdTTL: 1800 }); // TTL (Time To Live) de media hora
 
 export default {
 createHome : async (title1, landing1, logo1, info_header1, info_body1, url1, items1 ) => {
@@ -52,6 +55,12 @@ try {
 
 getHome : async () => {
     try {
+        let pages = cache.get('pages');
+        if (pages) {
+                       return {pages: pages,
+                               cache: true 
+                              }
+                        }// Devolver los datos en caché si existen}
         const dataFound = await Page.findAll({
              include :[{
                 model: Item,
@@ -61,7 +70,10 @@ getHome : async () => {
         if(!dataFound){const error = new Error('Dato no hallado'); error.status = 404; throw error;}
         if(dataFound.length === 0)return help.dataEmptyPage()
         const data = help.homeCleaner(dataFound, false)
-        return data;
+        cache.set('pages', data);
+        return {pages: data,
+                cache: false
+                }
     } catch (error) {throw error;}
 },
 getById : async (id) => {

@@ -80,8 +80,7 @@ export default function Detalle (){
     const info = response?.info;
     const items= response?.items;
     const [ isNavbarOpen, setIsNavbarOpen]= useState(false)
- 
-
+    console.log('soy detalle: ',response)
   useEffect(()=>{
     dispatch(getProjectById(id));
 

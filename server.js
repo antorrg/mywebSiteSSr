@@ -65,7 +65,7 @@ app.use('*', async (req, res) => {
     }
 
     let didError = false
-    const preloadedState = store.getState();
+    const preloadedState = await store.getState();
      // Inyectar el estado inicial _antes_ de la renderización del servidor
      const htmlWithState = template.replace(
       ``,

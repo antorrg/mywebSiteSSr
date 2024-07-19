@@ -42,12 +42,8 @@ if (!isProduction) {
   app.use(base, sirv('./dist/client', { extensions: [] }))
 }
 app.use(express.json()) // Ejecutar express.json()
-app.use(errhand.validJson)
 app.use('/api',mainRouter)
 
-app.use(errhand.lostRoute)
-
-app.use(errhand.errorEndWare)
 // Serve HTML
 
 app.use('*', async (req, res) => {
@@ -117,7 +113,8 @@ app.use('*', async (req, res) => {
     res.status(500).end(e.stack)
   }
 })
-
+app.use(errhand.lostRoute)
+app.use(errhand.errorEndWare)
 // Start http server
 app.listen(port, async () => {
   try {

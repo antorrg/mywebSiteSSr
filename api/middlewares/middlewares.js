@@ -1,6 +1,7 @@
 import pkg from 'jsonwebtoken'
 import env from '../envConfig.js'
 import { validate as uuidValidate, version as uuidVersion } from 'uuid';
+import { body, query,validationResult } from 'express-validator';
 
 export default {
  verifyToken : (req, res, next)=>{
@@ -130,5 +131,26 @@ validJson : (err, req, res, next)=>{
         res.status(400).json({error: 'Invalid JSON format'});
     }else{next()};
 },
+sanitizeBody : [
+    body('*').trim().escape(), // Sanea todos los campos del cuerpo de la solicitud
+    (req, res, next) => {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+      }
+      next();
+    }
+  ],
+  
+  sanitizeQuery : [
+    query('*').trim().escape(), // Sanea todos los parámetros de consulta
+    (req, res, next) => {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+      }
+      next();
+    }
+  ],
     
 }

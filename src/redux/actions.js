@@ -27,7 +27,7 @@ export const getProjectById = (id)=>async(dispatch)=>{
         const response = await axios(`/project/${id}`)
         return dispatch({
             type: SINGLE_PROJECT,
-            payload:response.data[0]
+            payload:response.data
         });
     } catch (error) {
         console.error(error)
@@ -39,7 +39,7 @@ export const getProjectById = (id)=>async(dispatch)=>{
         const response = await axios(`/project/item/${id}`)
         return dispatch({
             type: DETAIL_INFO,
-            payload:response.data[0]
+            payload:response.data
         });
     } catch (error) {
         console.error(error)

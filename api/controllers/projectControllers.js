@@ -56,13 +56,13 @@ export default {
   getProjectById: eh.catchAsync(async (req, res) => {
     const { id } = req.params;
     const response = await serv.getById(id);
-    res.status(200).json([response]);
+    res.status(200).json(response);
   }),
 
   getItemById: eh.catchAsync(async (req, res) => {
     const { id } = req.params;
     const response = await serv.getDetail(id);
-    res.status(200).json([response]);
+    res.status(200).json(response);
   }),
 //*@@@@@@@@@ aqui comienza el user @@@@@@@@@@@@@@@@@@
   createUserCtr: eh.catchAsync(async (req, res) => {

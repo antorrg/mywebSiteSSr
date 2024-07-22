@@ -9,7 +9,8 @@ import theme from './Theme/ThemeComponent.jsx'
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { ToastContainer } from "react-toastify";
 //import store from './redux/store'
-import { createStore, applyMiddleware, compose } from 'redux';
+//import { createStore, applyMiddleware, compose } from 'redux';
+import { configureStore } from '@reduxjs/toolkit';  
 import {thunk} from 'redux-thunk';
 import rootReducer from './redux/reducer.js';
 import {AuthProvider} from '../src/Auth/AuthContext/AuthContext'
@@ -25,12 +26,17 @@ const preloadedState = window.__PRELOADED_STATE__;
 delete window.__PRELOADED_STATE__;
 
 // Crear el store con el estado prehidratado
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(
-  rootReducer,
+// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+// const store = createStore(
+//   rootReducer,
+//   preloadedState,
+//   composeEnhancers(applyMiddleware(thunk)));
+const store = configureStore({
+  reducer: rootReducer,
   preloadedState,
-  composeEnhancers(applyMiddleware(thunk)));
-
+  middleware: (getDefaultMiddleware) => 
+    getDefaultMiddleware().concat(thunk),
+});
 ReactDOM.hydrateRoot(
   document.getElementById('root'),
   <React.StrictMode>

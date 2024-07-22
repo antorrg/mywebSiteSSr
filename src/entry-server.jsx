@@ -7,6 +7,7 @@ import { ThemeProvider } from 'styled-components'
 import theme from './Theme/ThemeComponent.jsx'
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { ToastContainer } from "react-toastify";
+import createStore from './redux/store.js'
 import axios from 'axios'
 import App from './App'
 
@@ -22,11 +23,11 @@ import App from './App'
 const authenticated = false;
 const user = null;
 
-export function render(url, ssrManifest, options) {
+export function render(url, ssrManifest, options, store) {
  
   return renderToPipeableStream(
     <React.StrictMode>
-   
+      <ReduxProvider store={store}>
       <AuthProvider initialAuthenticated={authenticated} initialUser={user}>
       <StaticRouter location={url}>
       <ThemeProvider theme = {theme}>
@@ -35,7 +36,7 @@ export function render(url, ssrManifest, options) {
       <ToastContainer/>
       </StaticRouter>
       </AuthProvider>
-      
+      </ReduxProvider>
     </React.StrictMode>,
     options
   )

@@ -5,7 +5,8 @@ import { sequelize } from './api/db.js'
 import mainRouter from './api/routes/mainRouter.js'
 import errhand from './api/middlewares/middlewares.js'
 import morgan from 'morgan'
-import store from './src/redux/store.js'
+//import store from './src/redux/store.js'
+import createStore from './src/redux/store.js'
 
 // Constants
 const isProduction = process.env.NODE_ENV === 'production'
@@ -60,12 +61,12 @@ app.use('*', async (req, res) => {
       template = templateHtml
       render = (await import('./dist/server/entry-server.js')).render
     }
-
+    const store = createStore()
     // Obtén el estado pre-cargado del store
     const preloadedState = store.getState()
 
     // Renderiza el contenido de la aplicación
-    const rendered = await render(url, ssrManifest)
+    const rendered = await render(url, ssrManifest, store)
 
     // Inyecta el estado pre-cargado en el HTML
     const html = template

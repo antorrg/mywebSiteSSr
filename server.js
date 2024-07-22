@@ -1,4 +1,5 @@
 import fs from 'node:fs/promises'
+import serialize from 'serialize-javascript'
 import express from 'express'
 import { sequelize } from './api/db.js'
 import mainRouter from './api/routes/mainRouter.js'
@@ -73,7 +74,7 @@ app.use('*', async (req, res) => {
       .replace(
         `</body>`,
         `<script>
-          window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
+          window.__PRELOADED_STATE__ = ${serialize(preloadedState)}
         </script></body>`
       )
 

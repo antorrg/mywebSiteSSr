@@ -1,7 +1,6 @@
 import fs from 'node:fs/promises'
 import express from 'express'
-import { Transform } from 'node:stream'
-import {sequelize} from './api/db.js'
+import { sequelize } from './api/db.js'
 import mainRouter from './api/routes/mainRouter.js'
 import errhand from './api/middlewares/middlewares.js'
 import morgan from 'morgan'
@@ -11,7 +10,6 @@ import store from './src/redux/store.js'
 const isProduction = process.env.NODE_ENV === 'production'
 const port = process.env.PORT || 5173
 const base = process.env.BASE || '/'
-const ABORT_DELAY = 10000
 
 // Cached production assets
 const templateHtml = isProduction
@@ -45,9 +43,7 @@ app.use(express.json()) // Ejecutar express.json()
 app.use(errhand.validJson)
 app.use('/api',mainRouter)
 
-
 // Serve HTML
-
 app.use('*', async (req, res) => {
   try {
     const url = req.originalUrl.replace(base, '')
@@ -64,59 +60,32 @@ app.use('*', async (req, res) => {
       render = (await import('./dist/server/entry-server.js')).render
     }
 
-    let didError = false
-    const preloadedState = await store.getState();
-     // Inyectar el estado inicial _antes_ de la renderización del servidor
-     const htmlWithState = template.replace(
-      ``,
-      `<script>
-        window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
-      </script>`
-    );
-    const { pipe, abort } = render(url, ssrManifest, {
-      onShellError() {
-        res.status(500)
-        res.set({ 'Content-Type': 'text/html' })
-        res.send('<h1>Something went wrong</h1>')
-      },
-      onShellReady() {
-        res.status(didError ? 500 : 200)
-        res.set({ 'Content-Type': 'text/html' })
+    // Obtén el estado pre-cargado del store
+    const preloadedState = store.getState()
 
-        const transformStream = new Transform({
-          transform(chunk, encoding, callback) {
-            res.write(chunk, encoding)
-            callback()
-          }
-        })
+    // Renderiza el contenido de la aplicación
+    const rendered = await render(url, ssrManifest)
 
-        const [htmlStart, htmlEnd] = htmlWithState.split(`<!--app-html-->`) //template
+    // Inyecta el estado pre-cargado en el HTML
+    const html = template
+      .replace(`<!--app-head-->`, rendered.head ?? '')
+      .replace(`<!--app-html-->`, rendered.html ?? '')
+      .replace(
+        `</body>`,
+        `<script>
+          window.__PRELOADED_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, '\\u003c')}
+        </script></body>`
+      )
 
-        res.write(htmlStart)
-
-        transformStream.on('finish', () => {
-          res.end(htmlEnd)
-        })
-
-        pipe(transformStream)
-      },
-      onError(error) {
-        didError = true
-        console.error(error)
-      }
-    })
-
-    setTimeout(() => {
-      abort()
-    }, ABORT_DELAY)
+    res.status(200).set({ 'Content-Type': 'text/html' }).send(html)
   } catch (e) {
     vite?.ssrFixStacktrace(e)
     console.log(e.stack)
     res.status(500).end(e.stack)
   }
 })
-app.use(errhand.lostRoute)
 
+app.use(errhand.lostRoute)
 app.use(errhand.errorEndWare)
 // Start http server
 app.listen(port, async () => {
